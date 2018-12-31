@@ -24,8 +24,12 @@ const ClassDeclaration = (t, property) => {
         ClassMethod: path3 => {
           if (path3.node.key.name === 'render') {
             path3.traverse({
-              JSXOpeningElement(path4) {
-                checkElementAndAddAttribute(t, path4, name, property);
+              ReturnStatement(path4) {
+                path4.traverse({
+                  JSXOpeningElement(path5) {
+                    checkElementAndAddAttribute(t, path5, name, property);
+                  }
+                })
               },
             })
           }
