@@ -15,5 +15,4 @@ export class Example3 extends React.Component {
   }
 }
 
-// babel 7
-// export const Example4 = () => <></>;
+export const Example4 = () => <></>;
