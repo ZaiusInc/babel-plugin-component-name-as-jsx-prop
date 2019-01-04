@@ -17,25 +17,34 @@ const ClassDeclaration = (t, property) => {
     if (!isReactComponent(path2)) {
       return;
     }
-    const name = getEntryIdentifier(path2);
 
-    if (name) {
-      path2.traverse({
-        ClassMethod: path3 => {
-          if (path3.node.key.name === 'render') {
-            path3.traverse({
-              ReturnStatement(path4) {
-                path4.traverse({
-                  JSXOpeningElement(path5) {
-                    checkElementAndAddAttribute(t, path5, name, property);
-                  }
-                })
-              },
-            })
-          }
-        },
-      })
+    const name = getEntryIdentifier(path2);
+    if (!name) {
+      return;
     }
+
+    path2.traverse({
+      ClassMethod(path3) {
+        if (path3.node.key.name !== 'render') {
+          return;
+        }
+
+        path3.traverse({
+          ReturnStatement(path4) {
+            const parent = path4.parentPath.parent;
+            if (t.isArrowFunctionExpression(parent)) {
+              return;
+            }
+
+            path4.traverse({
+              JSXOpeningElement(path5) {
+                checkElementAndAddAttribute(t, path5, name, property);
+              }
+            })
+          },
+        })
+      },
+    })
   };
 };
 
@@ -46,7 +55,12 @@ const ArrowFunctionExpression = (t, property) => {
     if (!isReactComponent(path2)) {
       return;
     }
+
     const name = getEntryIdentifier(path2);
+    if (!name) {
+      return;
+    }
+
     path2.traverse({
       JSXOpeningElement(path3) {
         checkElementAndAddAttribute(t, path3, name, property);
@@ -60,14 +74,17 @@ const FunctionDeclaration = (t, property) => {
     if (!isReactComponent(path2)) {
       return;
     }
+
     const name = getEntryIdentifier(path2);
-    if (name) {
-      path2.traverse({
-        JSXOpeningElement(path3) {
-          checkElementAndAddAttribute(t, path3, name, property);
-        },
-      })
+    if (!name) {
+      return;
     }
+
+    path2.traverse({
+      JSXOpeningElement(path3) {
+        checkElementAndAddAttribute(t, path3, name, property);
+      },
+    })
   };
 };
 
