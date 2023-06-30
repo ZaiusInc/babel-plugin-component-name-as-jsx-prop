@@ -1,6 +1,6 @@
 {
-  "name": "@zaius/babel-plugin-component-name-as-jsx-prop",
-  "version": "0.1.2",
+  "name": "@zaiusinc/babel-plugin-component-name-as-jsx-prop",
+  "version": "0.1.2d",
   "description": "Add property to render with component name",
   "main": "lib/index.js",
   "files": [
@@ -48,6 +48,6 @@
   ],
   "license": "MIT",
   "publishConfig": {
-    "registry": "http://npm-registry.prod.zaius"
+    "registry": "https://npm.pkg.github.com"
   }
 }

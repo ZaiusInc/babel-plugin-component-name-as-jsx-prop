@@ -7,6 +7,16 @@ jobs:
   publish-to-github:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Publishing BABEL plugin Package"
-
-
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com
+          scope: '@zaiusinc'
+      - run: npm ci
+        env:
+          INSTALL_PKGS_TOKEN: ${{ secrets.INSTALL_PKGS_TOKEN }}
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.INSTALL_PKGS_TOKEN }}
+          INSTALL_PKGS_TOKEN: ${{ secrets.INSTALL_PKGS_TOKEN }}
