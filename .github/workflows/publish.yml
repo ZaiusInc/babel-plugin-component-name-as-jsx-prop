@@ -1,0 +1,12 @@
+name: Publish BABEL plugin Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-to-github:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Publishing BABEL plugin Package"
+
+
