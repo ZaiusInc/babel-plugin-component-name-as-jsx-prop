@@ -1,5 +1,5 @@
 {
-  "name": "@zaius/babel-plugin-component-name-as-jsx-prop",
+  "name": "@zaiusinc/babel-plugin-component-name-as-jsx-prop",
   "version": "0.1.2d",
   "description": "Add property to render with component name",
   "repository": "https://github.com/ZaiusInc/babel-plugin-component-name-as-jsx-prop.git",
